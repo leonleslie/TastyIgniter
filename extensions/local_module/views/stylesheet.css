@@ -17,7 +17,7 @@ padding-bottom: 15px;
 border-radius: 25px;
 position: absolute;
 left: 10%;
-top: 26%;
+top: 300px;
 width: 80%;
 }
 }
@@ -159,7 +159,7 @@ margin-bottom: 20px;
 .panel-local dd, .panel-local dt {
 line-height: 1.529;
 }
-.panel-local .box-one dl {
+.panel-local .box-one dl.box-image {
 margin-left: 95px;
 }
 .side-bar .panel-local .box-one img {

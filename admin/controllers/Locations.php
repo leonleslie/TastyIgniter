@@ -204,7 +204,7 @@ class Locations extends Admin_Controller {
 		$data['description'] 			= $location_info['description'];
 		$data['location_lat'] 			= $location_info['location_lat'];
 		$data['location_lng'] 			= $location_info['location_lng'];
-		$data['location_status'] 		= $location_info['location_status'];
+		$data['location_status'] 		= isset($location_info['location_status']) ? $location_info['location_status'] : '1';
 		$data['offer_delivery'] 		= $location_info['offer_delivery'];
 		$data['offer_collection'] 		= $location_info['offer_collection'];
 		$data['delivery_time'] 			= isset($location_info['delivery_time']) ? $location_info['delivery_time'] : '0';
@@ -227,8 +227,8 @@ class Locations extends Admin_Controller {
             $data['location_image_name'] = basename($location_info['location_image']);
             $data['location_image_url'] = $this->Image_tool_model->resize($location_info['location_image']);
         } else {
-            $data['location_image'] = 'data/no_photo.png';
-            $data['location_image_name'] = 'no_photo.png';
+            $data['location_image'] = '';
+            $data['location_image_name'] = '';
             $data['location_image_url'] = $this->Image_tool_model->resize('data/no_photo.png');
         }
 
@@ -572,7 +572,7 @@ class Locations extends Admin_Controller {
 		$this->form_validation->set_rules('location_status', 'lang:label_status', 'xss_clean|trim|required|integer');
 		$this->form_validation->set_rules('permalink[permalink_id]', 'lang:label_permalink_id', 'xss_clean|trim|integer');
 		$this->form_validation->set_rules('permalink[slug]', 'lang:label_permalink_slug', 'xss_clean|trim|alpha_dash|max_length[255]');
-        $this->form_validation->set_rules('location_image', 'lang:label_image', 'xss_clean|trim|required');
+        $this->form_validation->set_rules('location_image', 'lang:label_image', 'xss_clean|trim');
 
 		$this->form_validation->set_rules('opening_type', 'lang:label_opening_type', 'xss_clean|trim|required|alpha_dash|max_length[10]');
 		if ($this->input->post('opening_type') === 'daily' AND $this->input->post('daily_days')) {
@@ -602,7 +602,11 @@ class Locations extends Admin_Controller {
 					foreach ($this->input->post('delivery_areas['.$key.'][charge]') as $k => $v) {
 						$this->form_validation->set_rules('delivery_areas[' . $key . '][charge][' . $k . '][amount]', '['.$key.'] '.$this->lang->line('label_area_charge'), 'xss_clean|trim|required|numeric');
 						$this->form_validation->set_rules('delivery_areas[' . $key . '][charge][' . $k . '][condition]', '['.$key.'] '.$this->lang->line('label_charge_condition'), 'xss_clean|trim|required|alpha_dash');
-						$this->form_validation->set_rules('delivery_areas[' . $key . '][charge][' . $k . '][total]', '['.$key.'] '.$this->lang->line('label_area_min_amount'), 'xss_clean|trim|required|numeric');
+						$this->form_validation->set_rules('delivery_areas[' . $key . '][charge][' . $k . '][total]', '[' . $key . '] ' . $this->lang->line('label_area_min_amount'), 'xss_clean|trim|numeric');
+
+						if ($this->input->post('delivery_areas[' . $key . '][charge][' . $k . '][condition]') !== 'all') {
+							$this->form_validation->set_rules('delivery_areas[' . $key . '][charge][' . $k . '][total]', '[' . $key . '] ' . $this->lang->line('label_area_min_amount'), 'required');
+						}
 					}
 				}
 			}

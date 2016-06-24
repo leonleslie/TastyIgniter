@@ -40,41 +40,46 @@ $theme['head_tags'] = array(
 	),
 );
 
-// Register partial areas for modules.
+// Register partial areas for layout modules.
 $theme['partial_area'] = array(
-    array(
-        'name'      => 'Content Top',
-        'id'        => 'content_top',
-        'open_tag'  => '<div id="{id}" class="partial">',
-        'close_tag' => '</div>',
-    ),
-    array(
-        'name'      => 'Content Bottom',
-        'id'        => 'content_bottom',
-        'open_tag'  => '<div class="clearfix"></div><div id="{id}" class="partial">',
-        'close_tag' => '</div>',
-    ),
-    array(
-        'name'      => 'Content Left',
-        'id'        => 'content_left',
-        'class'     => 'col-sm-3 ',
-        'open_tag'  => '<div id="{id}" class="partial {class}"><div class="side-bar">',
-        'close_tag' => '</div></div>',
-    ),
-    array(
-        'name'      => 'Content Right',
-        'id'        => 'content_right',
-        'class'     => 'col-sm-3 ',
-        'open_tag'  => '<div id="{id}" class="partial {class}"><div class="side-bar">',
-        'close_tag' => '</div></div>',
-    ),
-    array(
-        'name'      => 'Content Footer',
-        'id'        => 'content_footer',
-        'class'     => 'footer-section ',
-        'open_tag'  => '<div id="{id}" class="partial {class}">',
-        'close_tag' => '</div>',
-    ),
+	array(
+		'name'          => 'Content Top',
+		'id'            => 'content_top',
+		'open_tag'      => '<div id="{id}" class="partial partial-area {class}">',
+		'close_tag'     => '</div>',
+		'module_html' 	=> '<div id="{id}" class="{class}">{module}</div>',
+	),
+	array(
+		'name'          => 'Content Left',
+		'id'            => 'content_left',
+		'class'         => 'col-sm-3 ',
+		'open_tag'      => '<div id="{id}" class="partial partial-area {class}">',
+		'close_tag'     => '</div>',
+		'module_html' 	=> '<div id="{id}" class="side-bar {class}">{module}</div>',
+	),
+	array(
+		'name'          => 'Content Footer',
+		'id'            => 'content_footer',
+		'class'         => 'footer-section ',
+		'open_tag'      => '<div id="{id}" class="partial partial-area {class}">',
+		'close_tag'     => '</div>',
+		'module_html' 	=> '<div id="{id}" class="{class}">{module}</div>',
+	),
+	array(
+		'name'          => 'Content Bottom',
+		'id'            => 'content_bottom',
+		'open_tag'      => '<div class="clearfix"></div><div id="{id}" class="partial partial-area {class}">',
+		'close_tag'     => '</div>',
+		'module_html' 	=> '<div id="{id}" class="{class}">{module}</div>',
+	),
+	array(
+		'name'          => 'Content Right',
+		'id'            => 'content_right',
+		'class'         => 'col-sm-3 ',
+		'open_tag'      => '<div id="{id}" class="partial partial-area {class}">',
+		'close_tag'     => '</div>',
+		'module_html' 	=> '<div id="{id}" class="side-bar {class}">{module}</div>',
+	),
 );
 
 // Set all sections for the admin theme customisation.
@@ -269,56 +274,72 @@ $theme['customize']['sections']['styling'] = array(
 			)
 		),
 		array(
-			'legend'		=> 'Colors',
+			'legend'		=> 'Button Colors',
 			'fields'		=> array(
 				array(
 					'id'			=> 'input-button-default',
 					'label' 		=> 'Default color',
-					'desc'			=> 'The normal and hover background and hover default color',
+					'desc'			=> 'The default background, border and font color',
 					'type' 			=> 'input-group',
 					'group'			=> array(
 						array('name' => 'button[default][background]', 'type' => 'color', 'value' => '#E7E7E7', 'rules' => 'required'),
-						array('name' => 'button[default][hover]', 'type' => 'color', 'value' => '#CCCCCC', 'rules' => 'required'),
+						array('name' => 'button[default][hover]', 'type' => 'color', 'value' => '#E7E7E7', 'rules' => 'required'),
+						array('name' => 'button[default][font]', 'type' => 'color', 'value' => '#333333', 'rules' => 'required'),
 					)
 				),
 				array(
 					'id'			=> 'input-button-primary',
 					'label' 		=> 'Primary color',
-					'desc'			=> 'The normal and hover background and hover primary color',
+					'desc'			=> 'The primary background, border and font color',
 					'type' 			=> 'input-group',
 					'group'			=> array(
 						array('name' => 'button[primary][background]', 'type' => 'color', 'value' => '#428bca', 'rules' => 'required'),
-						array('name' => 'button[primary][hover]', 'type' => 'color', 'value' => '#357ebd', 'rules' => 'required'),
+						array('name' => 'button[primary][hover]', 'type' => 'color', 'value' => '#428bca', 'rules' => 'required'),
+						array('name' => 'button[primary][font]', 'type' => 'color', 'value' => '#FFFFFF', 'rules' => 'required'),
 					)
 				),
 				array(
 					'id'			=> 'input-button-success',
 					'label' 		=> 'Success color',
-					'desc'			=> 'The normal and hover background and hover success color',
+					'desc'			=> 'The success background, border and font color',
 					'type' 			=> 'input-group',
 					'group'			=> array(
 						array('name' => 'button[success][background]', 'type' => 'color', 'value' => '#5cb85c', 'rules' => 'required'),
-						array('name' => 'button[success][hover]', 'type' => 'color', 'value' => '#4cae4c', 'rules' => 'required'),
+						array('name' => 'button[success][hover]', 'type' => 'color', 'value' => '#5cb85c', 'rules' => 'required'),
+						array('name' => 'button[success][font]', 'type' => 'color', 'value' => '#FFFFFF', 'rules' => 'required'),
 					)
 				),
 				array(
 					'id'			=> 'input-button-info',
 					'label' 		=> 'Info color',
-					'desc'			=> 'The normal and hover background and hover info color',
+					'desc'			=> 'The info background, border and font color',
 					'type' 			=> 'input-group',
 					'group'			=> array(
 						array('name' => 'button[info][background]', 'type' => 'color', 'value' => '#5BC0DE', 'rules' => 'required'),
-						array('name' => 'button[info][hover]', 'type' => 'color', 'value' => '#31B0D5', 'rules' => 'required'),
+						array('name' => 'button[info][hover]', 'type' => 'color', 'value' => '#5BC0DE', 'rules' => 'required'),
+						array('name' => 'button[info][font]', 'type' => 'color', 'value' => '#FFFFFF', 'rules' => 'required'),
+					)
+				),
+				array(
+					'id'			=> 'input-button-warning',
+					'label' 		=> 'Warning color',
+					'desc'			=> 'The warning background, border and font color',
+					'type' 			=> 'input-group',
+					'group'			=> array(
+						array('name' => 'button[warning][background]', 'type' => 'color', 'value' => '#f0ad4e', 'rules' => 'required'),
+						array('name' => 'button[warning][hover]', 'type' => 'color', 'value' => '#f0ad4e', 'rules' => 'required'),
+						array('name' => 'button[warning][font]', 'type' => 'color', 'value' => '#FFFFFF', 'rules' => 'required'),
 					)
 				),
 				array(
 					'id'			=> 'input-button-danger',
 					'label' 		=> 'Danger color',
-					'desc'			=> 'The normal and hover background and hover danger color',
+					'desc'			=> 'The danger background, border and font color',
 					'type' 			=> 'input-group',
 					'group'			=> array(
 						array('name' => 'button[danger][background]', 'type' => 'color', 'value' => '#d9534f', 'rules' => 'required'),
-						array('name' => 'button[danger][hover]', 'type' => 'color', 'value' => '#d43f3a', 'rules' => 'required'),
+						array('name' => 'button[danger][border]', 'type' => 'color', 'value' => '#d9534f', 'rules' => 'required'),
+						array('name' => 'button[danger][font]', 'type' => 'color', 'value' => '#FFFFFF', 'rules' => 'required'),
 					)
 				),
 			)
@@ -387,8 +408,8 @@ $theme['customize']['sections']['header'] = array(
 				array(
 					'id'			=> 'input-header-color',
 					'name'			=> 'header[color]',
-					'label' 		=> 'Header font color',
-					'desc'			=> 'The color to use for the top header font/icons.',
+					'label' 		=> 'Header dropdown font color',
+					'desc'			=> 'The color to use for the top header dropdown font.',
 					'type' 			=> 'color',
 					'value'			=> '#FFF',
 					'rules'         => 'required',
@@ -497,28 +518,28 @@ $theme['customize']['sections']['social'] = array(
 			'name'			=> 'social[facebook]',
 			'label' 		=> 'Facebook',
 			'type' 			=> 'text',
-			'value'			=> '',
+			'value'			=> '#',
 		),
 		array(
 			'id'			=> 'input-social-twitter',
 			'name'			=> 'social[twitter]',
 			'label' 		=> 'Twitter',
 			'type' 			=> 'text',
-			'value'			=> '',
+			'value'			=> '#',
 		),
 		array(
 			'id'			=> 'input-social-google',
 			'name'			=> 'social[google]',
 			'label' 		=> 'Google +',
 			'type' 			=> 'text',
-			'value'			=> '',
+			'value'			=> '#',
 		),
 		array(
 			'id'			=> 'input-social-youtube',
 			'name'			=> 'social[youtube]',
 			'label' 		=> 'Youtube',
 			'type' 			=> 'text',
-			'value'			=> '',
+			'value'			=> '#',
 		),
 		array(
 			'id'			=> 'input-social-vimeo',

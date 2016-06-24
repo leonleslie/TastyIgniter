@@ -144,12 +144,13 @@ class Location {
 	}
 
 	public function getImage() {
-        $this->CI->load->model('Image_tool_model');
+		$image_url = NULL;
+		$this->CI->load->model('Image_tool_model');
         if (!empty($this->local_info['location_image'])) {
-            return $this->CI->Image_tool_model->resize($this->local_info['location_image'], '80', '80');
+			$image_url = $this->CI->Image_tool_model->resize($this->local_info['location_image'], '80', '80');
         }
 
-        return $this->CI->Image_tool_model->resize('data/no_photo.png', '80', '80');
+        return $image_url;
 	}
 
 	public function getGallery() {
@@ -875,6 +876,7 @@ class Location {
 
 				$charges = $condition = array();
 				foreach ($area['charge'] as $key => $charge) {
+					$charge['total'] = isset($charge['total']) ? $charge['total'] : '0';
 					$charges['amounts'][$key] = $charge['amount'];
 					$charges['conditions'][$key] = $con = ($charge['condition'] === 'above' AND $charge['total'] <= 0) ? 'all' : $charge['condition'];
 					$charges['totals'][$key] = $charge['total'];

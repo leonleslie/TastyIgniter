@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @var	string
  *
  */
-	define('TI_VERSION', '2.1.0-rc.2');
+	define('TI_VERSION', '2.1.0');
 
 	// Path to the root folder
 	defined('ROOTPATH') OR define('ROOTPATH', str_replace(SYSDIR.'/', '', BASEPATH));
@@ -165,8 +165,6 @@ if ($composer_autoload = config_item('composer_autoload') AND file_exists(BASEPA
 		file_exists(BASEPATH . 'vendor/autoload.php')
 			? require_once(BASEPATH . 'vendor/autoload.php')
 			: log_message('error', '$config[\'composer_autoload\'] is set to TRUE but ' . BASEPATH . 'vendor/autoload.php was not found.');
-	} elseif (file_exists($composer_autoload)) {
-		require_once($composer_autoload);
 	} else {
 		log_message('error', 'Could not find the specified $config[\'composer_autoload\'] path: ' . $composer_autoload);
 	}

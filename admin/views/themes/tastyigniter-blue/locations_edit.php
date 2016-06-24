@@ -4,6 +4,7 @@
 		<div class="row wrap-vertical">
 			<ul id="nav-tabs" class="nav nav-tabs">
 				<li class="active"><a href="#general" data-toggle="tab"><?php echo lang('text_tab_general'); ?></a></li>
+				<li><a href="#data" data-toggle="tab"><?php echo lang('text_tab_data'); ?></a></li>
 				<li><a href="#opening-hours" data-toggle="tab"><?php echo lang('text_tab_opening_hours'); ?></a></li>
 				<li><a href="#order" data-toggle="tab"><?php echo lang('text_tab_order'); ?></a></li>
 				<li><a href="#reservation" data-toggle="tab"><?php echo lang('text_tab_reservation'); ?></a></li>
@@ -123,8 +124,9 @@
 							</div>
 						</div>
 					</div>
+				</div>
 
-					<h4 class="tab-pane-title"></h4>
+				<div id="data" class="tab-pane row wrap-all">
 					<div class="form-group">
 						<label for="input-description" class="col-sm-3 control-label"><?php echo lang('label_description'); ?></label>
 						<div class="col-sm-5">
@@ -160,7 +162,7 @@
                                     <input type="hidden" name="location_image" value="<?php echo set_value('location_image', $location_image); ?>" id="field" />
                                     <p>
                                         <a id="select-image" class="btn btn-primary" onclick="mediaManager('field');"><i class="fa fa-picture-o"></i>&nbsp;&nbsp;<?php echo lang('text_select'); ?></a>
-                                        <a class="btn btn-danger" onclick="$('#thumb').attr('src', '<?php echo $no_location_image; ?>'); $('#field').attr('value', 'data/no_photo.png'); $(this).parent().parent().find('.name').html('no_photo.png');"><i class="fa fa-times-circle"></i>&nbsp;&nbsp;<?php echo lang('text_remove'); ?> </a>
+                                        <a class="btn btn-danger" onclick="$('#thumb').attr('src', '<?php echo $no_location_image; ?>'); $('#field').attr('value', ''); $(this).parent().parent().find('.name').html('');"><i class="fa fa-times-circle"></i>&nbsp;&nbsp;<?php echo lang('text_remove'); ?> </a>
                                     </p>
                                 </div>
                             </div>
@@ -661,7 +663,7 @@
 																					<i class="fa fa-times-circle"></i>
 																				</a>
 																			</td>
-																			<td><input type="text" name="delivery_areas[<?php echo $panel_row; ?>][charge][<?php echo $table_row; ?>][amount]" class="form-control input-sm charge" value="<?php echo $value['amount']; ?>" /></td>
+																			<td><input type="text" name="delivery_areas[<?php echo $panel_row; ?>][charge][<?php echo $table_row; ?>][amount]" class="form-control input-sm charge" value="<?php echo isset($value['amount']) ? $value['amount'] : ''; ?>" /></td>
 																			<td><select name="delivery_areas[<?php echo $panel_row; ?>][charge][<?php echo $table_row; ?>][condition]" class="form-control input-sm">
 																					<?php foreach ($delivery_charge_conditions as $condition => $condition_text) { ?>
 																						<?php if ($condition == $value['condition']) { ?>
@@ -672,7 +674,7 @@
 																					<?php } ?>
 																				</select>
 																			</td>
-																			<td><input type="text" name="delivery_areas[<?php echo $panel_row; ?>][charge][<?php echo $table_row; ?>][total]" class="form-control input-sm total" value="<?php echo $value['total']; ?>" /></td>
+																			<td><input type="text" name="delivery_areas[<?php echo $panel_row; ?>][charge][<?php echo $table_row; ?>][total]" class="form-control input-sm total" value="<?php echo isset($value['total']) ? $value['total'] : ''; ?>" /></td>
 																		</tr>
 																		<?php if (form_error('delivery_areas['.$panel_row.'][charge]['.$table_row.'][amount]')
 																			OR form_error('delivery_areas['.$panel_row.'][charge]['.$table_row.'][condition]')
@@ -880,7 +882,7 @@ $(document).ready(function() {
 		$(this).attr('data-table-row', tableRow);
 	});
 
-	$('#delivery-areas select.form-control').on('change', function() {
+	$(document).on('change', '#delivery-areas select.form-control', function() {
 		$(this).parent().parent().find('input.total').attr('disabled', false);
 
 		if (this.value == 'all') {
@@ -1421,7 +1423,7 @@ function addDeliveryCondition(panelRow, tableRow) {
 	html += '		</select>';
 	html += '	</td>';
 	html += '	<td>';
-	html += '		<input type="text" name="delivery_areas[' + panelRow + '][charge][' + tableRow + '][total]" class="form-control input-sm total" value="0" />';
+	html += '		<input type="text" name="delivery_areas[' + panelRow + '][charge][' + tableRow + '][total]" class="form-control input-sm total" disabled="disabled" value="0" />';
 	html += '	</td>';
 	html += '</tr>';
 
